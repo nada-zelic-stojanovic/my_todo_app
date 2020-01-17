@@ -22,6 +22,7 @@ export default {
         id: uuid.v4(),
         title: this.title,
         completed: false,
+        important: false
       }
       this.$emit('add-todo', newTodoObj);
       this.title = '';
