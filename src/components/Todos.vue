@@ -1,24 +1,29 @@
 <template>
-    <div>
-    <h2>My todolist</h2>
-    <ul>
+  <div class="container">
+    <h2 class='heading'>My To-Do list</h2>
+    <ul class="list-group">
       <li v-bind:key="todo.id" v-for="todo in todos">
-        <Todo v-bind:todo="todo" v-on:delete-todo="$emit('delete-todo', todo.id)"/>
+        <Todo v-bind:todo="todo" v-on:delete-todo="$emit('delete-todo', todo.id)" v-on:update-todo="$emit('update-todo', todo.id)"/>
       </li>
     </ul>
   </div>
 </template>
 <script>
-import Todo from './Todo';
+import Todo from "./Todo";
 export default {
-  name: 'Todos',
+  name: "Todos",
   components: {
     Todo
   },
-  props: [
-    "todos"
-  ]
-}
+  props: ["todos"]
+};
 </script>
 <style scoped>
+ .heading {
+     margin: 25px 0;
+     color: green;
+ }
+ ul {
+     list-style-type: none;
+ }
 </style>

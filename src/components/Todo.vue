@@ -1,6 +1,11 @@
 <template>
   <div v-bind:class="{ 'completed': todo.completed, 'important': todo.important }">
-    <p><span v-on:click="markComplete">{{ todo.title }}</span> <button v-on:click="markImportant">*</button><button @click="$emit('delete-todo', todo.id)">X</button></p>
+    <p>
+        <input type='checkbox' v-on:change='markComplete' class='checkbox' />
+        <span class='todo-title' contenteditable="true" v-on:keydown.enter="updateTask($event, list)" v-on:blur="updateTask($event, list)">{{ todo.title }}</span>
+        <button class='btn btn-outline-dark' v-on:click="markImportant">!</button>
+        <button class='btn btn-outline-danger' @click="$emit('delete-todo', todo.id)">X</button>
+    </p>
     
   </div>
 </template>
@@ -26,5 +31,14 @@ export default {
   }
   .important {
       font-weight: bold;
+  }
+  .checkbox {
+      margin: 5px 10px;
+  }
+  button {
+      margin: 0 5px;
+  }
+  .todo-title {
+      margin-right: 10px;
   }
 </style>

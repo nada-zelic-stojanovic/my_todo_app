@@ -1,8 +1,8 @@
 <template>
   <div>
-    <form @submit="addTodo">
-      <input type="text" v-model="title" name="title">
-      <button type="submit">Add</button>
+    <form @submit="addTodo">  
+      <input class='form-control' placeholder="I need to..." type="text" v-model="title" name="title" required>
+      <button class='btn btn-success' type="submit">Add</button>
     </form>
   </div>
 </template>
@@ -31,4 +31,10 @@ export default {
 }
 </script>
 <style scoped>
+    button {
+        margin: 5px;
+    }
+    input {
+        margin: 5px;
+    }
 </style>
