@@ -2,8 +2,8 @@
   <div class="container">
     <h2 class='heading'>My To-Do list</h2>
     <ul class="list-group">
-      <li v-bind:key="todo.id" v-for="todo in todos">
-        <Todo v-bind:todo="todo" v-on:delete-todo="$emit('delete-todo', todo.id)" v-on:update-todo="$emit('update-todo', todo.id)"/>
+      <li :key="todo.id" v-for="todo in todos">
+        <Todo :todo="todo" v-on:delete-todo="$emit('delete-todo', todo.id)" v-on:update-todo="$emit('update-todo', todo.id)"/>
       </li>
     </ul>
   </div>

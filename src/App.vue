@@ -1,7 +1,7 @@
 <template>
 <div class='container'>
   <div id="app">
-    <Todos v-bind:todos="todos" v-on:delete-todo="deleteTodo" v-on:update-todo='updateTodo'/>
+    <Todos :todos="todos" v-on:delete-todo="deleteTodo" v-on:update-tod.prevent='updateTodo'/>
     <AddTodo v-on:add-todo="addTodo"/>
   </div>
 </div>
@@ -17,9 +17,7 @@ export default {
   },
   data() {
     return {
-      todos: [
-        
-      ],
+      todos: [],
     }
   },
   methods: {
@@ -29,8 +27,7 @@ export default {
     deleteTodo(todoId) {
       this.todos = this.todos.filter(todo => todo.id !== todoId);
     },
-    updateTask: function(e, list){
-      e.preventDefault();
+    updateTask (e, list){
       list.title = e.target.innerText;
       e.target.blur();
     },
