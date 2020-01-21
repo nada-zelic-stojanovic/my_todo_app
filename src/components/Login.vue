@@ -1,0 +1,91 @@
+<template>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <br />
+            <h5 class="card-title text-center">Login to Todos</h5>
+            <br />
+            <form class="form-signin" @submit.prevent="login">
+              <div class="form-label-group">
+                <input
+                  v-model="email"
+                  type="email"
+                  class="form-control"
+                  placeholder="Email address"
+                  required
+                  autofocus
+                />
+              </div>
+              <br />
+              <div class="form-label-group">
+                <input
+                  v-model="password"
+                  type="password"
+                  class="form-control"
+                  placeholder="Password"
+                  required
+                />
+              </div>
+              <br />
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Log in</button>
+              <br />
+            </form>
+            <div class="center-text">
+              Or
+              <a href="/register">Register</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+
+export default {
+  name: "Login",
+  data() {
+    return {
+      email: "",
+      password: "",
+      error: false
+    };
+  },
+  methods: {
+    login() {
+      this.$http
+        .post("/login", { email: this.email, password: this.password })
+        .then(request => this.loginSuccessful(request))
+        .catch(() => this.loginFailed());
+    },
+
+    loginSuccessful(req) {
+      if (!req.data.token) {
+        this.loginFailed();
+        return;
+       }
+
+      localStorage.token = req.data.token;
+      this.error = false;
+
+      this.$router.replace(this.$route.query.redirect || "/");
+    },
+
+    loginFailed() {
+      this.error = "Login failed!";
+      delete localStorage.token;
+    }
+  
+    
+  }
+};
+</script>
+
+<style scoped>
+.center-text {
+  text-align: center;
+}
+</style>
