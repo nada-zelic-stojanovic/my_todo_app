@@ -40,7 +40,7 @@
                 />
               </div>
               <br />
-               <div class="form-label-group">
+              <div class="form-label-group">
                 <input
                   v-model="confirmPassword"
                   type="password"
@@ -50,7 +50,7 @@
                 />
               </div>
               <br />
-             
+
               <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Register</button>
               <br />
             </form>
@@ -62,6 +62,7 @@
 </template>
 
 <script>
+import { userService } from "../services/userServices";
 export default {
   name: "Register",
   data() {
@@ -69,40 +70,18 @@ export default {
       name: "",
       email: "",
       password: "",
-      confirmPassword: '',
-      error: false
+      confirmPassword: ""
     };
   },
   methods: {
     register() {
-      this.$http
-        .post("/register", {
-          name: this.name,
-          email: this.email,
-          password: this.password,
-          password_confirmation: this.confirmPassword
-        })
-        .then(request => this.registerSuccessful(request))
-        .catch(() => this.registerFailed());
-    },
-    registerSuccessful(req) {
-      if (!req.data.token) {
-        this.registerFailed();
-        return;
-      }
-
-      localStorage.token = req.data.token;
-      this.error = false;
-
-      this.$router.replace(this.$route.query.redirect || "/login");
-    },
-
-    registerFailed() {
-      this.error = "Register failed!";
-      delete localStorage.token;
-      return this.error;
+      userService.register(
+        this.name,
+        this.email,
+        this.password,
+        this.confirmPassword
+      );
     }
   }
 };
-//password123
 </script>
