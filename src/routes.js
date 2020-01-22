@@ -3,7 +3,7 @@ import Register from './components/Register';
 import Home from './components/Home';
 
 export default [
-    {path: '/login', component: Login},
-    {path: '/register', component: Register},
-    {path: '/', component: Home}
+    {name:'login', path: '/login', component: Login},
+    {name:'register', path: '/register', component: Register},
+    {name: 'home', path: '/', component: Home}
 ]
