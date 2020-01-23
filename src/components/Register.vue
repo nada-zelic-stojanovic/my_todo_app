@@ -54,6 +54,11 @@
               <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Register</button>
               <br />
             </form>
+            <br />
+            <div
+              v-if="error.message.length > 0"
+              class="error"
+            >{{error.title}}: {{error.message}}</div>
           </div>
         </div>
       </div>
@@ -70,17 +75,24 @@ export default {
       name: "",
       email: "",
       password: "",
-      confirmPassword: ""
+      confirmPassword: "",
+      error: {
+        title: "",
+        message: ""
+      }
     };
   },
   methods: {
     register() {
-      userService.register(
-        this.name,
-        this.email,
-        this.password,
-        this.confirmPassword
-      );
+      userService
+        .register(this.name, this.email, this.password, this.confirmPassword)
+        .then(() => {
+          this.$outer.push({ name: "login" });
+        })
+        .catch(e => {
+          this.error.title = "Register Error";
+          this.error.message = e.message;
+        });
     }
   }
 };

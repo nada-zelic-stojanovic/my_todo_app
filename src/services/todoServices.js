@@ -6,8 +6,8 @@ const postTodo = (newTodo) => {
     .then((res) => {
       return res.data;
     })
-    .catch((e) => {
-      return e;
+    .catch((error) => {
+      throw error;
     });
 }
 
@@ -15,16 +15,22 @@ const getTodos = () => {
   return Vue.axios.get('/todo')
     .then(result => {
       return result.data;
+    }).catch((error) => {
+      throw error;
     });
 }
 
 const deleteTodo = (id) => {
-  Vue.axios.delete('/todo/' + id);
+  Vue.axios.delete('/todo/' + id).catch((error) => {
+    throw error;
+  });
 }
 
 const updateTodo = (id, todo) => {
   return Vue.axios
-    .post('/todo/' + id, todo);
+    .post('/todo/' + id, todo).catch((error) => {
+      throw error;
+    });
 }
 
 export const todoService = {
