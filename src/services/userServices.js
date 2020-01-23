@@ -5,7 +5,7 @@ const login = (email, password) => {
   Vue.axios.post("/login", { email, password })
     .then(req => {
       if (!req.data.token) {
-        this.loginFailed();
+        delete localStorage.token;
         return;
       }
       localStorage.token = req.data.token;
@@ -30,7 +30,6 @@ const register = (name, email, password, password_confirmation) => {
         this.registerFailed();
         return;
       }
-
       localStorage.token = req.data.token;
       router.push({ name: 'login' });
     })
