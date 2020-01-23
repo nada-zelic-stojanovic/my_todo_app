@@ -17,21 +17,26 @@ export default {
   name: "Todo",
   props: ["todo"],
   methods: {
+    updateTodo(field, value) {
+      const todo = {};
+      todo[field] = value;
+      return {...this.todo, ...todo};
+    },
     toggleComplete() {
-      const completed = !this.todo.completed;
-      const updatedTodo = { ...this.todo, completed };
-      this.$emit("update-todo", updatedTodo);
+      const updatedTodo = this.updateTodo('completed', !this.todo.completed);
+      this.emitUpdateTodo(updatedTodo);
     },
     toggleImportant() {
-      const important = !this.todo.important;
-      const updatedTodo = { ...this.todo, important };
-      this.$emit("update-todo", updatedTodo);
+      const updatedTodo = this.updateTodo('important', !this.todo.important);
+      this.emitUpdateTodo(updatedTodo);
     },
     updateTitle(e) {
-      const title = e.target.innerText;
-      const updatedTodo = { ...this.todo, title };
-      this.$emit("update-todo", updatedTodo);
-    }
+      const updatedTodo = this.updateTodo('title', e.target.innerText);
+      this.emitUpdateTodo(updatedTodo);
+    },
+     emitUpdateTodo(updatedTodo) {
+      this.$emit("update-todo", updatedTodo)
+    },
   }
 };
 </script>
