@@ -87,7 +87,7 @@ export default {
       userService
         .register(this.name, this.email, this.password, this.confirmPassword)
         .then(() => {
-          this.$outer.push({ name: "login" });
+          this.$router.push({ name: "login" });
         })
         .catch(e => {
           this.error.title = "Register Error";
