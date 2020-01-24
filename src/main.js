@@ -14,7 +14,7 @@ export const router = new VueRouter({
 Vue.config.productionTip = false
 
 new Vue({
-  router: router,
+  router,
   axios,
   render: h => h(App),
 }).$mount('#app')

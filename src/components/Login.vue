@@ -36,6 +36,11 @@
               Or
               <a href="/register">Register</a>
             </div>
+            <br />
+            <div
+              v-if="error.message.length > 0"
+              class="error"
+            >{{error.title}}: {{error.message}}</div>
           </div>
         </div>
       </div>
@@ -52,12 +57,23 @@ export default {
     return {
       email: "",
       password: "",
-      error: false
+      error: {
+        title: "",
+        message: ""
+      }
     };
   },
   methods: {
     login() {
-      userService.login(this.email, this.password);
+      userService
+        .login(this.email, this.password)
+        .then(() => {
+          this.$router.push({ name: "home" });
+        })
+        .catch(e => {
+          this.error.title = "Login Error";
+          this.error.message = e.message;
+        });
     }
   }
 };
@@ -66,5 +82,8 @@ export default {
 <style scoped>
 .center-text {
   text-align: center;
+}
+.error {
+  color: red;
 }
 </style>
